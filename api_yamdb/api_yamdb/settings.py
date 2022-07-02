@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'users',
     'api',
     'reviews',
+	'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'django_email_verification',
