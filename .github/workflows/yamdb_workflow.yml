@@ -71,11 +71,15 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+          echo DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }} >> .env
+          echo DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }} >> .env
+          echo DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }} >> .env
           sudo docker run --rm -d -p 8000:8000 dmitryw8/infra:latest
           sudo docker compose up -d
           sudo docker-compose exec -T web python manage.py makemigrations
           sudo docker compose exec -T web python manage.py migrate
           sudo docker compose exec -T web python manage.py collectstatic --noinput
+          sudo docker compose exec -T web python manage.py createsuperuser
 
   send_message:
     runs-on: ubuntu-latest
